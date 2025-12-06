@@ -1,0 +1,3212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÖZSOY SYSTEM - DARK DATA HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --primary-dark: #5A0000;
+            --secondary: #B22222;
+            --dark: #0A0A0A;
+            --darker: #050505;
+            --light: #E0E0E0;
+            --gray: #8B8B8B;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --card-border: rgba(139, 0, 0, 0.6);
+            --glow: rgba(139, 0, 0, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(178, 34, 34, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(139, 0, 0, 0.1) 1px, transparent 0);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(139, 0, 0, 0.2), transparent 70%);
+            z-index: -1;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.6);
+            transform: rotate(0deg);
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: 'ÖZSOY';
+            position: absolute;
+            bottom: -25px;
+            font-size: 12px;
+            color: var(--secondary);
+            opacity: 0.7;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+        }
+
+        .logo-icon:hover {
+            transform: rotate(360deg);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), #FF4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 20px rgba(139, 0, 0, 0.7);
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .ozsoy-system {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-top: -10px;
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.8);
+            animation: satanicGlow 2s infinite alternate;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        @keyframes satanicGlow {
+            from { 
+                text-shadow: 0 0 15px rgba(139, 0, 0, 0.8); 
+            }
+            to { 
+                text-shadow: 0 0 25px rgba(139, 0, 0, 1), 
+                           0 0 35px rgba(178, 34, 34, 0.6),
+                           0 0 45px rgba(255, 69, 0, 0.3); 
+            }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 30px auto;
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 20px 30px;
+            text-align: center;
+            min-width: 170px;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-item:hover::before {
+            left: 100%;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4);
+            border-color: var(--secondary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .nav-tabs::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .nav-tab {
+            padding: 15px 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(139, 0, 0, 0.15);
+            border-color: var(--secondary);
+        }
+
+        .section {
+            margin-bottom: 60px;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: satanicFadeIn 0.5s ease;
+        }
+
+        @keyframes satanicFadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0 0 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: 'ÖZSOY';
+            position: absolute;
+            bottom: -25px;
+            right: 0;
+            font-size: 1rem;
+            color: var(--gray);
+            opacity: 0.5;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .data-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .data-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            border-color: var(--secondary);
+        }
+
+        .data-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .data-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .data-size {
+            background: rgba(178, 34, 34, 0.2);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .data-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+
+        .data-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .data-updated, .data-format {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .download-btn.premium {
+            background: linear-gradient(135deg, #8B0000, #B22222, #FF4500);
+        }
+
+        .vip-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #8B0000, #B22222);
+            color: #FFF;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 15px rgba(139, 0, 0, 0.5);
+            z-index: 2;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vip-badge i {
+            color: #FFD700;
+        }
+
+        .terminal {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 40px 0;
+            font-family: 'Courier New', monospace;
+            color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 90%, rgba(139, 0, 0, 0.15) 100%);
+            pointer-events: none;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 15px;
+        }
+
+        .terminal-title {
+            font-weight: bold;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .terminal-status {
+            color: var(--secondary);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .terminal-content {
+            line-height: 1.6;
+        }
+
+        .terminal-line {
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 50px 0;
+            margin-top: 70px;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+            color: var(--gray);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .security-note {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(139, 0, 0, 0.15);
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-note i {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .security-note strong {
+            color: var(--secondary);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .search-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px 25px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--light);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .satanic-seal {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+            opacity: 0.3;
+            z-index: 100;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .satanic-seal:hover {
+            opacity: 0.8;
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .data-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 3rem;
+            }
+            
+            .ozsoy-system {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .data-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .stats {
+                gap: 15px;
+            }
+            
+            .stat-item {
+                min-width: 140px;
+                padding: 15px 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-tab {
+                width: 90%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            
+            .footer-links {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 2.2rem;
+            }
+            
+            .ozsoy-system {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+                padding: 12px 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="satanic-seal" title="ÖZSOY Seal">
+        <i class="fas fa-skull-crossbones"></i>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h1 class="logo-text">ÖZSOY</h1>
+                <div class="ozsoy-system">DARK DATA HUB</div>
+            </div>
+            
+            <p class="tagline">WAKANDA FOREVER - TÜM VERİLER BURADA</p>
+
+            <div class="security-note">
+                <i class="fas fa-shield-alt"></i>
+                <strong>ÖZSOY SYSTEM AKTİF:</strong> 400+ veri seti güncel olarak yüklenmiştir.
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-title">root@ozsoy:~$</div>
+                    <div class="terminal-status">DATABASE: ACTIVE</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> system_status --database</div>
+                    <div class="terminal-line">> DATABASE_COUNT: <span style="color: var(--primary)">400+</span></div>
+                    <div class="terminal-line">> TOTAL_SIZE: <span style="color: var(--primary)">2.1TB+</span></div>
+                    <div class="terminal-line">> LAST_UPDATE: <span style="color: var(--primary)">TODAY</span></div>
+                    <div class="terminal-line">> WAKANDA_MODE: <span style="color: var(--primary)">ACTIVE</span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> _</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">400+</div>
+                    <div class="stat-label">Veri Seti</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2.1TB+</div>
+                    <div class="stat-label">Toplam Boyut</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Aktif</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Erişim</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="🔍 Veri ara... (GSM, TC, Adres, vb.)" id="searchInput">
+        </div>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="all">Tüm Veriler</div>
+            <div class="nav-tab" data-tab="gsm">GSM Verileri</div>
+            <div class="nav-tab" data-tab="tc">TC Verileri</div>
+            <div class="nav-tab" data-tab="adres">Adres Verileri</div>
+            <div class="nav-tab" data-tab="social">Sosyal Medya</div>
+            <div class="nav-tab" data-tab="government">Kurumsal Veriler</div>
+        </div>
+
+        <!-- Tüm Veriler -->
+        <div class="section active" id="all">
+            <h2 class="section-title">
+                <i class="fas fa-database"></i>
+                Tüm Veri Setleri
+            </h2>
+
+            <div class="data-grid" id="allData">
+                <!-- 400k Vesika -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>400k Vesika</h3>
+                        <span class="data-size">412 MB</span>
+                    </div>
+                    <p class="data-description">Yüksek çözünürlüklü vesikalık fotoğraf veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1bmgiE1ZQ4aMQEzDRSSAs9WVfX2Kls4QV/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 6m Aşı -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>6m Aşı</h3>
+                        <span class="data-size">850 MB</span>
+                    </div>
+                    <p class="data-description">COVID-19 aşı verileri ve istatistikleri</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/13WB2iD0_-2wTXKQzuH5VfJBNTtkOeK-0/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 1m Meslek -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>1m Meslek</h3>
+                        <span class="data-size">320 MB</span>
+                    </div>
+                    <p class="data-description">Meslek grupları veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/13ZPHEyz_kqL2QAEQFbBX19DBVA6CoAjE/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 100k Üniversite -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>100k Üniversite</h3>
+                        <span class="data-size">280 MB</span>
+                    </div>
+                    <p class="data-description">Üniversite öğrenci veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/15BYhR0xU9neTFGCPI_-y0HEttdc5wHvm/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 77k Üniversite -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>77k Üniversite</h3>
+                        <span class="data-size">210 MB</span>
+                    </div>
+                    <p class="data-description">Üniversite veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1617DX8JBgpk80_6wSOwP7D79fPnuN75a/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 54m Seçmen 2015 -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>54m Seçmen 2015</h3>
+                        <span class="data-size">1.2 GB</span>
+                    </div>
+                    <p class="data-description">2015 genel seçim seçmen veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/167XC60hDxvvX5NgNYyIPXIYhUvwV-sCS/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 81m Adres -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>81m Adres (2009-2024)</h3>
+                        <span class="data-size">1.8 GB</span>
+                    </div>
+                    <p class="data-description">Adres veritabanı 2009-2024</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1BRTriBMqp4ZSvlNMsUGfnW_L2v-fEiGV/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 3m Craftrise -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>3m Craftrise</h3>
+                        <span class="data-size">850 MB</span>
+                    </div>
+                    <p class="data-description">Craftrise oyun kullanıcı veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1FCFS21r81XVUM15mfRiYG9kC5QdtMwJ7/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 5m Hgs -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>5m Hgs</h3>
+                        <span class="data-size">1.1 GB</span>
+                    </div>
+                    <p class="data-description">HGS geçiş veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1GzJ4us2Kc76QRpfEhI40pBWRmFBNueeK/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2m SGK -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2m SGK</h3>
+                        <span class="data-size">450 MB</span>
+                    </div>
+                    <p class="data-description">Sosyal Güvenlik Kurumu verileri</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1JCr3AROaOt3Nxfy7_oYyeapUNFS5zoYB/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 9m Ak Parti -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>9m Ak Parti</h3>
+                        <span class="data-size">1.1 GB</span>
+                    </div>
+                    <p class="data-description">Ak Parti üye ve destekçi veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1JEv5p_bMUNPGPMKiiAfXM-6iHwGahvUm/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2m Kocaeli Tapu -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2m Kocaeli Tapu</h3>
+                        <span class="data-size">480 MB</span>
+                    </div>
+                    <p class="data-description">Kocaeli ili tapu kayıtları</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1NqCCiXTWN7y0zJs_cjKV4UtMrMOrZ8s_/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 25m Okul No -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>25m Okul No</h3>
+                        <span class="data-size">1.5 GB</span>
+                    </div>
+                    <p class="data-description">Okul numarası veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1QK6b2J2mVEYyHCXFNvcyVTHJPviK2DKW/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 57k Plaka -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>57k Plaka</h3>
+                        <span class="data-size">150 MB</span>
+                    </div>
+                    <p class="data-description">Araç plaka veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1U73OzRx4nlBFTCzZFPYcgZN__iKHLRSz/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 240k Ölüm -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>240k Ölüm</h3>
+                        <span class="data-size">320 MB</span>
+                    </div>
+                    <p class="data-description">Vefat eden kişiler veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1YQTRbCiT7DRz8ocSsWRmT8b-akB2it7P/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 5m Okul No -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>5m Okul No</h3>
+                        <span class="data-size">1.2 GB</span>
+                    </div>
+                    <p class="data-description">Okul numarası veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1ZHZPIZEo-cgewe-3_zI5tBESf8a02vTG/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 9m Akbis -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>9m Akbis</h3>
+                        <span class="data-size">2.1 GB</span>
+                    </div>
+                    <p class="data-description">Akbis veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1_Us9ti7HUc8gHkrcveO1Os6MXE-RZ3m5/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 20m İş Yeri -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>20m İş Yeri</h3>
+                        <span class="data-size">2.8 GB</span>
+                    </div>
+                    <p class="data-description">İş yeri ve firma veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1dJ6uMyRqZIxNZ9ozF6dDESuaoxYXgi-U/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 10k Turk Net -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>10k Turk Net</h3>
+                        <span class="data-size">45 MB</span>
+                    </div>
+                    <p class="data-description">Türk Net kullanıcı veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1eblvzTwRfgDwEPn7Bm0MJkNOLbs40Z3N/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 60k Vesika -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>60k Vesika</h3>
+                        <span class="data-size">120 MB</span>
+                    </div>
+                    <p class="data-description">Vesikalık fotoğraf veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1gisHgOssuvrtCy7mONEv3JmDiR3N6id9/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 3m Yabancı -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>3m Yabancı</h3>
+                        <span class="data-size">780 MB</span>
+                    </div>
+                    <p class="data-description">Yabancı uyruklu kişiler veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1hgmF5s6OO-hW6H0pKFSng3L5DpIVAF-x/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 8m İstanbul Tapu -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>8m İstanbul Tapu</h3>
+                        <span class="data-size">1.5 GB</span>
+                    </div>
+                    <p class="data-description">İstanbul ili tapu kayıtları</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1juEwo-4jQoGKwbcH8Stc9sqZ5yPlkRpE/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2m Akgençlik -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2m Akgençlik</h3>
+                        <span class="data-size">520 MB</span>
+                    </div>
+                    <p class="data-description">Ak Gençlik üye veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1m7LwpmTCKdxZ9ARxhU_untJyEMqOrNtW/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 3k Yök Vesika -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>3k Yök Vesika</h3>
+                        <span class="data-size">85 MB</span>
+                    </div>
+                    <p class="data-description">YÖK vesikalık fotoğraf veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1o_tlvW3Ub7_gy1kC7E869EjaFb75N3ME/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 600k Instagram -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>600k Instagram</h3>
+                        <span class="data-size">1.5 GB</span>
+                    </div>
+                    <p class="data-description">Instagram kullanıcı veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1oxxqUuCQQNGF51pAydLftcPeW-A1V4F-/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Eczane -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Eczane</h3>
+                        <span class="data-size">180 MB</span>
+                    </div>
+                    <p class="data-description">Eczane ve ilaç veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1rx-q-WvY006ethlCLZgeUI4f5ObiAin1/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 20m Türkiye Facebook -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>20m Türkiye Facebook</h3>
+                        <span class="data-size">2.8 GB</span>
+                    </div>
+                    <p class="data-description">Türkiye Facebook kullanıcı veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1x8OlCwowDwrRATJJs8lQii96Zy8xGRac/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 70k Papara -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>70k Papara</h3>
+                        <span class="data-size">210 MB</span>
+                    </div>
+                    <p class="data-description">Papara kullanıcı veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1xjZhJhnMcNuYVxoN5dLSAksJI0krZtF5/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 83m Adres -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>83m Adres</h3>
+                        <span class="data-size">1.9 GB</span>
+                    </div>
+                    <p class="data-description">Adres veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1w3dxU6Dr9AtCN9LxaGIyTcxyShQcEylQ/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 97m 33 İl Tapu -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>97m 33 İl Tapu</h3>
+                        <span class="data-size">2.1 GB</span>
+                    </div>
+                    <p class="data-description">33 ildeki tapu kayıtları ve mülkiyet bilgileri</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1uBsIGe5mFe_8tiqFewywDextSPF6Rabv/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 109m Tc Pro -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>109m Tc Pro</h3>
+                        <span class="data-size">2.5 GB</span>
+                    </div>
+                    <p class="data-description">TC kimlik profilleri veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/15QnumnhgZsiAy9vaILMFpxMpGymWvk57/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 195m Gsm -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>195m Gsm</h3>
+                        <span class="data-size">3.8 GB</span>
+                    </div>
+                    <p class="data-description">GSM numarası veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/16UUUBaqFqRD1guzNEk8hjvKZ3cHfZNUX/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 135m Gsm -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>135m Gsm</h3>
+                        <span class="data-size">2.9 GB</span>
+                    </div>
+                    <p class="data-description">GSM numara veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/19rWIa_iJz3IWFfRBog61ZgvoeQ68o7-9/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 116m Gsm -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>116m Gsm</h3>
+                        <span class="data-size">2.6 GB</span>
+                    </div>
+                    <p class="data-description">GSM veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/19wAhByABb-KssZUWiFilIk0ANekiIef0/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 145m Gsm -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>145m Gsm</h3>
+                        <span class="data-size">3.2 GB</span>
+                    </div>
+                    <p class="data-description">GSM operatör veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1UiAJHwe6VDHlrKd7GuqM8j-lfi2lmsgM/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 50m Vatandaş -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>50m Vatandaş</h3>
+                        <span class="data-size">1.3 GB</span>
+                    </div>
+                    <p class="data-description">Vatandaş veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/10cBYrxgOHfuJ_HB63pjq9nQ987NyWSFE/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 120m Gsm -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>120m Gsm</h3>
+                        <span class="data-size">2.7 GB</span>
+                    </div>
+                    <p class="data-description">GSM abone veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/19vEG1Bag-TeB0G6zH_qGS5MiCGBotcMg/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 180k Bursa Sicil -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>180k Bursa Sicil</h3>
+                        <span class="data-size">420 MB</span>
+                    </div>
+                    <p class="data-description">Bursa sicil kayıtları</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1AUx97-Ij0eDJasMce7vokE689-258gLX/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 186k Seri No -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>186k Seri No</h3>
+                        <span class="data-size">450 MB</span>
+                    </div>
+                    <p class="data-description">Seri numarası veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1PBQYnZMs7TzywEVFyk-EpsD8ljiDApie/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 101m -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>101m</h3>
+                        <span class="data-size">2.3 GB</span>
+                    </div>
+                    <p class="data-description">Genel veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Ut7EPR7ZzmKf-do2GaHE1YkYitcStFOC/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 313k İşler Öğretmen -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>313k İşler Öğretmen</h3>
+                        <span class="data-size">780 MB</span>
+                    </div>
+                    <p class="data-description">İşler öğretmen veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1fwTaIcKa7qGrbxenTtscwxhoHiMtUCad/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 289k Vergi -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>289k Vergi</h3>
+                        <span class="data-size">720 MB</span>
+                    </div>
+                    <p class="data-description">Vergi veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1nYuq4oLvBPKMUEURuo_HHs_OIIhK3MBE/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 300k İys -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>300k İys</h3>
+                        <span class="data-size">750 MB</span>
+                    </div>
+                    <p class="data-description">İYS veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1o3asYbAsX70KlAfxfLQwTNIQ8-mnx1hW/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 178k Öğretmen -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>178k Öğretmen</h3>
+                        <span class="data-size">450 MB</span>
+                    </div>
+                    <p class="data-description">Öğretmen veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1r3ak2bzZ9aVodFTuRBbjmAJuF6A61s6X/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 800k İşler Öğrenci -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>800k İşler Öğrenci</h3>
+                        <span class="data-size">1.8 GB</span>
+                    </div>
+                    <p class="data-description">İşler öğrenci veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1z4og5-Ip0TQutEXH0lZ1cX0EzugZ6xdb/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 81m Us Wirless -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>81m Us Wirless</h3>
+                        <span class="data-size">1.9 GB</span>
+                    </div>
+                    <p class="data-description">US Wireless veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1LauARf7qfYe8dnjKZtOmbpDC_6G0Ce7v/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Seçmen 2015 -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Seçmen 2015</h3>
+                        <span class="data-size">1.1 GB</span>
+                    </div>
+                    <p class="data-description">2015 seçmen veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/12sJqXnrWsd9yi-S7ryk8ILfKFTsJQ8Op/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 1k Türk Telekom -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>1k Türk Telekom</h3>
+                        <span class="data-size">35 MB</span>
+                    </div>
+                    <p class="data-description">Türk Telekom veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1v2IuPVGvcipn2SLAcXv0fPQfW018RfsM/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 23m e-Okul -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>23m e-Okul</h3>
+                        <span class="data-size">2.5 GB</span>
+                    </div>
+                    <p class="data-description">e-Okul veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/18GQ4culyLH0X7nxcv4R_aYtir_4SO_4I/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 83m Adres -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>83m Adres</h3>
+                        <span class="data-size">1.9 GB</span>
+                    </div>
+                    <p class="data-description">Adres veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1-DVjMfOKEBY-qnvyug2aaok3NmhCjur1/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Mobil Mernis -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Mobil Mernis</h3>
+                        <span class="data-size">1.2 GB</span>
+                    </div>
+                    <p class="data-description">Mobil Mernis veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1cB64DQiXol4DUQwcFJPgEVN2JqKbSN7i/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 116m -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>116m</h3>
+                        <span class="data-size">2.6 GB</span>
+                    </div>
+                    <p class="data-description">Genel veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1V3dY82ZQdcP-B2GhIU0fgh6NXLJI0B0O/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 100k Üniversite -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>100k Üniversite</h3>
+                        <span class="data-size">280 MB</span>
+                    </div>
+                    <p class="data-description">Üniversite veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1bILAvJTwJRMsBw54na9HDfDbgyZx7ecj/view?usp=drive_link" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 120m -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>120m</h3>
+                        <span class="data-size">2.7 GB</span>
+                    </div>
+                    <p class="data-description">Genel veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Uv6NOY77U3LOzRQsZHkjrXUgfpsFh-CP/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 33 İl Tapu -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>33 İl Tapu</h3>
+                        <span class="data-size">2.1 GB</span>
+                    </div>
+                    <p class="data-description">33 il tapu kayıtları</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/17q_0PBvBcIjhQ_2nWeZqWsT0gPlVctui/view?usp=drive_link" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 1.5m Sgk -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>1.5m Sgk</h3>
+                        <span class="data-size">420 MB</span>
+                    </div>
+                    <p class="data-description">SGK veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1frrCLSBp3qMQbJIqH_TFzDw2IhclJIy6/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 101m -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>101m</h3>
+                        <span class="data-size">2.3 GB</span>
+                    </div>
+                    <p class="data-description">Genel veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1hw3IGfFgPMLqwjmfXRT7JmzXc2j9ab7C/view?usp=drive_link" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 20m Facebook -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>20m Facebook</h3>
+                        <span class="data-size">2.8 GB</span>
+                    </div>
+                    <p class="data-description">Facebook veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1NhqRYTf4EHesNJ8dtkVaXeIjNK3p7iRn/view?usp=drive_link" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Tc Pro -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Tc Pro</h3>
+                        <span class="data-size">2.5 GB</span>
+                    </div>
+                    <p class="data-description">TC kimlik profilleri</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1cjvSm749Jro-eujTHd4RqNbk8Wpa9bCD/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 145m -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>145m</h3>
+                        <span class="data-size">3.2 GB</span>
+                    </div>
+                    <p class="data-description">Genel veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/19llOkN6cs9hBd_ZTh_3LSnaSCMvCPfbS/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 135m -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>135m</h3>
+                        <span class="data-size">2.9 GB</span>
+                    </div>
+                    <p class="data-description">Genel veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/10VS4w_B6BO8jMUJFdNxXQQqdVqfxHnZY/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 20m Sgk -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>20m Sgk</h3>
+                        <span class="data-size">2.8 GB</span>
+                    </div>
+                    <p class="data-description">SGK veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1K9QRwfW_auglD1BpRIP7q0dh_lBAm6Fr/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2m Rusya Mail Telefon -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2m Rusya Mail Telefon</h3>
+                        <span class="data-size">520 MB</span>
+                    </div>
+                    <p class="data-description">Rusya mail ve telefon veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/10Bh67vZLTgPW7oZ7k7yKkUYRWlNLuT4j/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2.5m Craftrise -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2.5m Craftrise</h3>
+                        <span class="data-size">720 MB</span>
+                    </div>
+                    <p class="data-description">Craftrise oyun veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/10Yj-Y73r8Mgh86ghproJgodHv92Hi2Aq/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 387k Discord -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>387k Discord</h3>
+                        <span class="data-size">980 MB</span>
+                    </div>
+                    <p class="data-description">Discord kullanıcı veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/12aMEJg1LJGepzA6AU4o9w-L3HS9imez0/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Hüdapar -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Hüdapar</h3>
+                        <span class="data-size">180 MB</span>
+                    </div>
+                    <p class="data-description">Hüdapar veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/17VoY87xtb4HmvLodJ-EtQFytr4mGFqFj/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 8k Teb -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>8k Teb</h3>
+                        <span class="data-size">45 MB</span>
+                    </div>
+                    <p class="data-description">TEB veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/19wyKKW6XkjAhyuQq9NUG3OxOtTlC9di4/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Reeder -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Reeder</h3>
+                        <span class="data-size">120 MB</span>
+                    </div>
+                    <p class="data-description">Reeder veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1BRZzYaKbL8eLsp2P85ZK9HWHzwsET1tz/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 5m Çin Kfc -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>5m Çin Kfc</h3>
+                        <span class="data-size">1.2 GB</span>
+                    </div>
+                    <p class="data-description">Çin KFC veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1EInovg_RvErarStsM7ZONRiWKk6nZG6P/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2.5m Yabancı -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2.5m Yabancı</h3>
+                        <span class="data-size">680 MB</span>
+                    </div>
+                    <p class="data-description">Yabancı uyruklu kişiler veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1K8uwCCMLGDB2LXGprv6xd1nLwYLPAwEJ/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 25m Okul No -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>25m Okul No</h3>
+                        <span class="data-size">1.5 GB</span>
+                    </div>
+                    <p class="data-description">Okul numarası veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1PEB4h2hXiUcuDmDmLhyp3Xzjh6BLaTAS/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 100k Grandbet -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>100k Grandbet</h3>
+                        <span class="data-size">280 MB</span>
+                    </div>
+                    <p class="data-description">Grandbet veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1PJw-vhHWGT2SMw-01w9zL9HNzAskfqB4/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 18k Elexbet -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>18k Elexbet</h3>
+                        <span class="data-size">65 MB</span>
+                    </div>
+                    <p class="data-description">Elexbet veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1R0TtBLpKE_7gwubGTMvk8YblbC0oaj0G/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 77k Üniversite -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>77k Üniversite</h3>
+                        <span class="data-size">210 MB</span>
+                    </div>
+                    <p class="data-description">Üniversite veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1S4Z2jZrHBTHI57cK6z7UIdb21gHIK0Os/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 9m Ak Parti -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>9m Ak Parti</h3>
+                        <span class="data-size">1.1 GB</span>
+                    </div>
+                    <p class="data-description">Ak Parti veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1StDhNbOoo3jxm1m_nfJMcp1uqQloOCs9/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 240k Ölüm -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>240k Ölüm</h3>
+                        <span class="data-size">320 MB</span>
+                    </div>
+                    <p class="data-description">Vefat eden kişiler veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1UTE52aPMytqCvyZ4bX_9gD0WPv1zlV3F/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 5k Hemen Bahis -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>5k Hemen Bahis</h3>
+                        <span class="data-size">45 MB</span>
+                    </div>
+                    <p class="data-description">Hemen Bahis veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1VH_au5o7BvfBQ6ZjoPO__N8h0BEcoZ6g/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 360k 1xbet -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>360k 1xbet</h3>
+                        <span class="data-size">850 MB</span>
+                    </div>
+                    <p class="data-description">1xbet veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Vn5zTdv6S8Ir2SC6Ct19cuR4VSfO4yW0/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Eczane -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Eczane</h3>
+                        <span class="data-size">180 MB</span>
+                    </div>
+                    <p class="data-description">Eczane veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1XVxrsrgQ7ebFHkMS68_beMeqbkTwXc_e/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 10m Ak Parti -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>10m Ak Parti</h3>
+                        <span class="data-size">1.2 GB</span>
+                    </div>
+                    <p class="data-description">Ak Parti veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1etJgiHvw2vs5nn6hiz2Ix7UZwfFEpMi-/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 500k Tuttur -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>500k Tuttur</h3>
+                        <span class="data-size">1.1 GB</span>
+                    </div>
+                    <p class="data-description">Tuttur veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1ezuSXr5uEkrva0bxvIY4KNxvpnS50cXx/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 60k Vesika -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>60k Vesika</h3>
+                        <span class="data-size">120 MB</span>
+                    </div>
+                    <p class="data-description">Vesikalık fotoğraf veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1g1QFGF4AxGa8D1LusMdN_XUpXOPm1bDg/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 550k Instagram -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>550k Instagram</h3>
+                        <span class="data-size">1.4 GB</span>
+                    </div>
+                    <p class="data-description">Instagram veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1gaI10FbTu32oMljxPxTEpEMuys7lmV_O/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 77k Vodofone -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>77k Vodofone</h3>
+                        <span class="data-size">210 MB</span>
+                    </div>
+                    <p class="data-description">Vodofone veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1jbw2dDCUS4M6z6BJHsustMQc-Z5KS8zP/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 8m İstanbul Tapu -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>8m İstanbul Tapu</h3>
+                        <span class="data-size">1.5 GB</span>
+                    </div>
+                    <p class="data-description">İstanbul tapu kayıtları</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1kIqrq_hg-MfJ_vmTr94tezAuvNIW1Rrb/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 31k Hep Bahis -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>31k Hep Bahis</h3>
+                        <span class="data-size">95 MB</span>
+                    </div>
+                    <p class="data-description">Hep Bahis veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1l8QGnbA4JWWLkT1_Z00TE1YCUW3u-AE0/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 2m Kocaeli Tapu -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>2m Kocaeli Tapu</h3>
+                        <span class="data-size">480 MB</span>
+                    </div>
+                    <p class="data-description">Kocaeli tapu kayıtları</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1nyB4rbJo1RCVQqKkzNhsKAmX_XbqPyRV/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 54k Ziraat Bankası -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>54k Ziraat Bankası</h3>
+                        <span class="data-size">150 MB</span>
+                    </div>
+                    <p class="data-description">Ziraat Bankası veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1ourpOq3Xc45JINOXpzuJ2yRk9FsTB5BH/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Papara -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Papara</h3>
+                        <span class="data-size">210 MB</span>
+                    </div>
+                    <p class="data-description">Papara veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1qx00jseSa-WmRAtCU0JmC1ezQG-vCcMV/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 10k Betibet -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>10k Betibet</h3>
+                        <span class="data-size">45 MB</span>
+                    </div>
+                    <p class="data-description">Betibet veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1x6axyYsM7fzpaAOUL2w0V8X81rkxGRQg/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- Sözcü -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Sözcü</h3>
+                        <span class="data-size">180 MB</span>
+                    </div>
+                    <p class="data-description">Sözcü veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1zrSp2uJX_lZElVjxUFys6N14Spd8NXDt/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 400k Vesika -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP
+                    </div>
+                    <div class="data-card-header">
+                        <h3>400k Vesika</h3>
+                        <span class="data-size">412 MB</span>
+                    </div>
+                    <p class="data-description">Vesikalık fotoğraf veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1brbf0YrYoiYMMCqR8HT3VGKN5EhURg84/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 57k Plaka -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>57k Plaka</h3>
+                        <span class="data-size">150 MB</span>
+                    </div>
+                    <p class="data-description">Plaka veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1MGgt3pXWZch_vSDy0dUtrMqusfyZqh1F/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 10k Türk Net -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>10k Türk Net</h3>
+                        <span class="data-size">45 MB</span>
+                    </div>
+                    <p class="data-description">Türk Net veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1ruIgo37v7eqWB5BZnTd3XytxX4erS4On/view?usp=sharing" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 200m Gsm -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP+
+                    </div>
+                    <div class="data-card-header">
+                        <h3>200m Gsm</h3>
+                        <span class="data-size">4.2 GB</span>
+                    </div>
+                    <p class="data-description">Türkiye'nin en kapsamlı GSM veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1oo6_RJcd9qWywx6l0yvol9cRXbOyQdow/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+                <!-- 200m Gsm Tc Verisi -->
+                <div class="data-card">
+                    <div class="vip-badge">
+                        <i class="fas fa-crown"></i> VIP+
+                    </div>
+                    <div class="data-card-header">
+                        <h3>200m Gsm + Tc</h3>
+                        <span class="data-size">4.5 GB</span>
+                    </div>
+                    <p class="data-description">GSM + TC eşleştirilmiş tam veritabanı</p>
+                    <div class="data-meta">
+                        <div class="data-updated">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Güncel</span>
+                        </div>
+                        <div class="data-format">
+                            <i class="far fa-file-alt"></i>
+                            <span>CSV/ZIP</span>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1QK6b2J2mVEYyHCXFNvcyVTHJPviK2DKW/view?usp=sharing" target="_blank" class="download-btn premium">
+                        <i class="fas fa-download"></i> ÖZSOY İndir
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- GSM Verileri -->
+        <div class="section" id="gsm">
+            <h2 class="section-title">
+                <i class="fas fa-mobile-alt"></i>
+                GSM Veri Setleri
+            </h2>
+            <div class="data-grid" id="gsmData">
+                <!-- Buraya sadece GSM verileri gelecek -->
+            </div>
+        </div>
+
+        <!-- TC Verileri -->
+        <div class="section" id="tc">
+            <h2 class="section-title">
+                <i class="fas fa-id-card"></i>
+                TC Kimlik Verileri
+            </h2>
+            <div class="data-grid" id="tcData">
+                <!-- Buraya sadece TC verileri gelecek -->
+            </div>
+        </div>
+
+        <!-- Adres Verileri -->
+        <div class="section" id="adres">
+            <h2 class="section-title">
+                <i class="fas fa-home"></i>
+                Adres Verileri
+            </h2>
+            <div class="data-grid" id="adresData">
+                <!-- Buraya sadece adres verileri gelecek -->
+            </div>
+        </div>
+
+        <!-- Sosyal Medya -->
+        <div class="section" id="social">
+            <h2 class="section-title">
+                <i class="fas fa-share-alt"></i>
+                Sosyal Medya Verileri
+            </h2>
+            <div class="data-grid" id="socialData">
+                <!-- Buraya sadece sosyal medya verileri gelecek -->
+            </div>
+        </div>
+
+        <!-- Kurumsal Veriler -->
+        <div class="section" id="government">
+            <h2 class="section-title">
+                <i class="fas fa-landmark"></i>
+                Kurumsal Veriler
+            </h2>
+            <div class="data-grid" id="governmentData">
+                <!-- Buraya sadece kurumsal veriler gelecek -->
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Gizlilik</a>
+                <a href="#" class="footer-link">Şartlar</a>
+                <a href="#" class="footer-link">İletişim</a>
+                <a href="#" class="footer-link">Destek</a>
+            </div>
+            <p>© 2024 ÖZSOY SYSTEM - WAKANDA FOREVER</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                "Veri güçtür, ÖZSOY kontrol eder."
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+
+            const dataCards = document.querySelectorAll('.data-card');
+            dataCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) rotateX(5deg)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) rotateX(0)';
+                });
+            });
+
+            // Arama fonksiyonu
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const dataCards = document.querySelectorAll('.data-card');
+                    
+                    dataCards.forEach(card => {
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        const description = card.querySelector('.data-description').textContent.toLowerCase();
+                        
+                        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // Güvenlik önlemleri
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' ||
+                   (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                   (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+                   (e.ctrlKey && e.key === 'U')) {
+                    e.preventDefault();
+                    const terminal = document.querySelector('.terminal');
+                    if (terminal) {
+                        const content = terminal.querySelector('.terminal-content');
+                        const newLine = document.createElement('div');
+                        newLine.className = 'terminal-line';
+                        newLine.innerHTML = `<span class="terminal-prompt">$</span> <span style="color: var(--primary)">SECURITY_ALERT: Unauthorized access attempt blocked</span>`;
+                        content.appendChild(newLine);
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                }
+            });
+
+            // Satanic seal efekti
+            const seal = document.querySelector('.satanic-seal');
+            if (seal) {
+                seal.addEventListener('click', function() {
+                    const colors = ['#8B0000', '#B22222', '#FF4500', '#DC143C'];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    document.documentElement.style.setProperty('--primary', randomColor);
+                    
+                    // Terminal mesajı
+                    const terminal = document.querySelector('.terminal');
+                    if (terminal) {
+                        const content = terminal.querySelector('.terminal-content');
+                        const newLine = document.createElement('div');
+                        newLine.className = 'terminal-line';
+                        newLine.innerHTML = `<span class="terminal-prompt">$</span> <span style="color: var(--primary)">SYSTEM_COLOR: Changed to ${randomColor}</span>`;
+                        content.appendChild(newLine);
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                });
+            }
+
+            // Verileri kategorilere ayır
+            function categorizeData() {
+                const allCards = document.querySelectorAll('#allData .data-card');
+                
+                const gsmKeywords = ['gsm', 'telefon', 'numara', 'mobil'];
+                const tcKeywords = ['tc', 'kimlik', 'vatandaş'];
+                const adresKeywords = ['adres', 'tapu', 'ev', 'iş yeri'];
+                const socialKeywords = ['instagram', 'facebook', 'discord', 'papara', 'craftrise'];
+                const govKeywords = ['sgk', 'vergi', 'ak parti', 'akbis', 'seçmen', 'hüdapar'];
+                
+                allCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('.data-description').textContent.toLowerCase();
+                    
+                    // GSM verileri
+                    if (gsmKeywords.some(keyword => title.includes(keyword) || description.includes(keyword))) {
+                        const clone = card.cloneNode(true);
+                        document.getElementById('gsmData').appendChild(clone);
+                    }
+                    
+                    // TC verileri
+                    if (tcKeywords.some(keyword => title.includes(keyword) || description.includes(keyword))) {
+                        const clone = card.cloneNode(true);
+                        document.getElementById('tcData').appendChild(clone);
+                    }
+                    
+                    // Adres verileri
+                    if (adresKeywords.some(keyword => title.includes(keyword) || description.includes(keyword))) {
+                        const clone = card.cloneNode(true);
+                        document.getElementById('adresData').appendChild(clone);
+                    }
+                    
+                    // Sosyal medya
+                    if (socialKeywords.some(keyword => title.includes(keyword) || description.includes(keyword))) {
+                        const clone = card.cloneNode(true);
+                        document.getElementById('socialData').appendChild(clone);
+                    }
+                    
+                    // Kurumsal
+                    if (govKeywords.some(keyword => title.includes(keyword) || description.includes(keyword))) {
+                        const clone = card.cloneNode(true);
+                        document.getElementById('governmentData').appendChild(clone);
+                    }
+                });
+            }
+            
+            categorizeData();
+        });
+    </script>
+</body>
+</html>
